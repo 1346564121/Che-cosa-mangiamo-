@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="shortcut icon" href="https://www.easyicon.net/api/resizeApi.php?id=1187384&size=128">
+    <title>Che cosa mangiamo?</title>
+    <style type="text/css">
+        *{
+          -webkit-user-select: auto;
+        }
+    </style>
+</head>
+<body style="background-color: WhiteSmoke;font-family: Georgia, KaiTi;">
+    <div class="container-fluid" style="margin-top: 20vh;">
+        <h3 class="text-center"><b>Che cosa mangiamo?</b></h3>      
+        <br>
+        <div class="text-center" class="input-group col-md-3" style="margin:0 auto">
+            <b>请选择：</b>
+            <input type="checkbox" name="jxf" id="radio1" value="蛋白质" />蛋白质
+            <input type="checkbox" name="jxf" id="radio2" value="纤维素" />纤维素
+            <input type="checkbox" name="jxf" id="radio3" value="高碳水" />高碳水
+            <input type="checkbox" name="jxf" id="radio4" value="汤" />汤
+            <input type="checkbox" name="jxf" id="radio4" value="主食" />主食
+            <br>
+        </div>
+        <h3 class="text-center" class="input-group-btn">
+            <input value="查询" type="submit" onclick="findlzh()" class="btn btn-info btn-search" style="margin-left:3px;margin-bottom: 5px;width:300px">
+        </h3>
+        <br>
+        <div style="text-align: center">
+            <div id="finalresult" style="display: inline;"></div>
+        </div>
+        <br>
+        <button id="copyBT" class="btn btn-default" style="display:none;">复制邮箱</button>
+    </div>
+    <script>
+        
+        // 查找菜品函数
+        function findlzh(){
+            const meals = {
+            '蛋白质':['口水鸡','黄焖鸡','什锦鸡肉','可乐鸡翅（腿）','青椒牛柳','芹菜牛肉','土豆牛肉','清炒虾仁','鱼香肉丝','韩式五花肉','水煮肉片','毛血旺','红烧鱼','葱焖鱼','三汁焖锅','盐焗鸡','番茄龙虾焖锅','糖醋荷包蛋','皮蛋拌豆腐','麻辣鸭血豆腐','香煎豆腐','大葱炒羊肉','回锅肉','虾仁滑蛋'],
+            '纤维素':['炒花菜','炒包菜','清炒大白菜','香菇青菜','耗油生菜','木须肉','番茄炒蛋','洋葱炒蛋','西葫芦炒蛋','擂椒皮蛋茄子','地三鲜','豆芽炒肉丝','干煸四季豆','西蓝花炒虾仁','蘑菇芦笋','上汤娃娃菜','炒娃娃菜'],
+            '高碳水':['清炒藕片','酸辣土豆丝','蚂蚁上树','芒果糯米饭'],
+            '汤':['紫菜蛋汤','菠菜蛋/丸子汤','海带虾仁豆腐汤','菠菜蘑菇汤','番茄蛋汤','黄鱼豆腐汤'],
+            '主食':['蛋炒饭','肉酱面','糯米饭','葱油拌面','饺子']            
+            }
+            let lty = document.getElementsByName("jxf");
+            let cc='';
+            let result='推荐菜谱：';
+            for(var i=0; i<lty.length; i++){ 
+                if(lty[i].checked){
+                    cc=lty[i].value; //如果选中，则cc等于变量值
+                    var a=parseInt(Math.random()*meals[cc].length);
+                    result+=meals[cc][a]+'、';  
+                } 
+            }; 
+            result = result.substr(0, result.length - 1);
+            finalresult.innerHTML = result;
+
+        }
+
+        // 查找教授邮箱函数
+        function findEmail(){
+            let result1 = document.getElementById("result1");
+            let result2 = document.getElementById("result2");
+            let name = document.getElementById("name").value;
+            let email1;
+            let email2 = "";
+            for(var key in dataObject){
+                if(name == key){
+                    email1 = `${name}老师的邮箱是:`;
+                    email2 = dataObject[key];
+                    document.getElementById("copyBT").style.display = "block";
+                    document.getElementById("copyBT").style.margin = "0 auto";
+                    break;
+                }else if(name == ""){
+                    email1 = "您还没有输入老师姓名！";
+                    document.getElementById("copyBT").style.display = "none";
+                }else{
+                    email1 = name + "老师的邮箱尚未收录或者不是本系老师";
+                    document.getElementById("copyBT").style.display = "none";
+                } 
+            }
+            result1.innerHTML = email1;
+            result2.innerHTML = email2;
+        };
+
+        // 实现按下enter键直接返回结果
+        document.onkeydown = function(event){
+            var e = event || window.event;
+            if (e && e.keyCode == 13){
+                findEmail();
+            }
+        }
+
+        function copyArticle(event) {
+            let name = document.getElementById("name").value;
+            const range = document.createRange();
+            range.selectNode(document.getElementById('result2'));
+            const selection = window.getSelection();
+            if(selection.rangeCount > 0) selection.removeAllRanges();
+            selection.addRange(range);
+            document.execCommand('copy');
+            alert(`${name}老师的邮箱复制成功！`);
+        }
+        document.getElementById('copyBT').addEventListener('click', copyArticle, false);
+    </script>
+</body>
+</html>
