@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,16 +15,16 @@
 </head>
 <body style="background-color: WhiteSmoke;font-family: Georgia, KaiTi;">
     <div class="container-fluid" style="margin-top: 20vh;">
-        <h3 class="text-center"><b>Che cosa mangiamo?</b></h3>      
+        <h3 class="text-center"><b>Che cosa mangiamo?</b></h3>
         <br>
         <div class="text-center" class="input-group col-md-3" style="margin:0 auto">
-            <b>请选择</b>（默认全选）：
+            <b>请选择</b>（with 呱呱）：
             <br>
             <input type="checkbox" name="jxf" id="radio1" checked ='checked' value="蛋白质" />蛋白质
             <input type="checkbox" name="jxf" id="radio2" checked ='checked' value="纤维素" />纤维素
             <input type="checkbox" name="jxf" id="radio3" checked ='checked' value="高碳水" />高碳水
             <input type="checkbox" name="jxf" id="radio4" checked ='checked' value="汤" />汤
-            <input type="checkbox" name="jxf" id="radio4" checked ='checked' value="主食" />主食
+            <input type="checkbox" name="jxf" id="radio5" checked ='checked' value="主食" />主食
             <br>
         </div>
         <h3 class="text-center" class="input-group-btn">
@@ -39,34 +40,55 @@
         <br>
         <button id="copyBT" class="btn btn-default" style="display:none;">复制邮箱</button>
     </div>
+
+        <div class="text-center" class="input-group col-md-3" style="margin:0 auto">
+            <b>请选择</b>（without 呱呱）：
+            <br>
+            <input type="checkbox" name="jxf1" id="radio11" checked ='checked' value="蛋白质" />蛋白质
+            <input type="checkbox" name="jxf1" id="radio21" checked ='checked' value="纤维素" />纤维素
+            <input type="checkbox" name="jxf1" id="radio31" checked ='checked' value="高碳水" />高碳水
+            <input type="checkbox" name="jxf1" id="radio41" checked ='checked' value="汤" />汤
+            <input type="checkbox" name="jxf1" id="radio51" checked ='checked' value="主食" />主食
+            <br>
+        </div>
+        <h3 class="text-center" class="input-group-btn">
+            <input value="查询" type="submit" onclick="findlzh1()" class="btn btn-info btn-search" style="margin-left:3px;margin-bottom: 5px;width:300px">
+        </h3>
+        <br>
+        <div style="text-align: center">
+            <div id="finalresult1" style="display: inline;"></div><br>
+            <div id="finalzuocai1" style="display: inline;"></div><br>
+            <div id="finalmaicai1" style="display: inline;"></div><br>
+            <div id="finalxiwan1" style="display: inline;"></div><br>
+        </div>
     <script>
-        
+
         // 查找菜品函数
         function findlzh(){
             const name = ['何老师','金老师','柳老师','CC','紫慧']
-            
+
             const meals = {
             '蛋白质':['口水鸡','黄焖鸡','什锦鸡肉','可乐鸡翅（腿）','青椒牛柳','芹菜牛肉','土豆牛肉','清炒虾仁','鱼香肉丝','韩式五花肉','水煮肉片','毛血旺','红烧鱼','葱焖鱼','三汁焖锅','盐焗鸡','番茄龙虾焖锅','糖醋荷包蛋','皮蛋拌豆腐','麻辣鸭血豆腐','香煎豆腐','大葱炒羊肉','回锅肉','虾仁滑蛋'],
             '纤维素':['炒花菜','炒包菜','清炒大白菜','香菇青菜','耗油生菜','木须肉','番茄炒蛋','洋葱炒蛋','西葫芦炒蛋','擂椒皮蛋茄子','地三鲜','豆芽炒肉丝','干煸四季豆','西蓝花炒虾仁','蘑菇芦笋','上汤娃娃菜','炒娃娃菜'],
             '高碳水':['清炒藕片','酸辣土豆丝','蚂蚁上树','芒果糯米饭'],
             '汤':['紫菜蛋汤','菠菜蛋/丸子汤','海带虾仁豆腐汤','菠菜蘑菇汤','番茄蛋汤','黄鱼豆腐汤'],
-            '主食':['蛋炒饭','肉酱面','糯米饭','葱油拌面','饺子']            
+            '主食':['蛋炒饭','肉酱面','糯米饭','葱油拌面','饺子']
             }
-            
-            let lty = document.getElementsByName("jxf");
+
+            let lty = document.getElementsByName("jxf1");
             let cc='';
             let result='推荐菜谱：';
             let zuocai='做菜：';
             let maicai='买菜：';
             let xiwan='洗碗：';
-            
-            for(var i=0; i<lty.length; i++){ 
+
+            for(var i=0; i<lty.length; i++){
                 if(lty[i].checked){
                     cc=lty[i].value; //如果选中，则cc等于变量值
                     let a=parseInt(Math.random()*meals[cc].length);
-                    result+=meals[cc][a]+'、';  
-                } 
-            }; 
+                    result+=meals[cc][a]+'、';
+                }
+            };
             for(var i=0;i<999;i++){
                 let b = parseInt(Math.random()*5);
                 let c = parseInt(Math.random()*5);
@@ -75,7 +97,7 @@
                     xiwan += name[c];
                     for(var y=0;y<5;y++){
                         if(y!=b && y!=c){
-                            zuocai += name[y]+'、';  
+                            zuocai += name[y]+'、';
                         };
                     };
                     break;
@@ -98,6 +120,61 @@
             }
         }
 
+function findlzh1(){
+            const name = ['何老师','金老师','柳老师','CC','紫慧']
+
+            const meals = {
+            '蛋白质':['口水鸡','黄焖鸡','什锦鸡肉','可乐鸡翅（腿）','青椒牛柳','芹菜牛肉','土豆牛肉','清炒虾仁','鱼香肉丝','红烧鱼','葱焖鱼','三汁焖锅','盐焗鸡','番茄龙虾焖锅','糖醋荷包蛋','回锅肉','虾仁滑蛋'],
+            '纤维素':['炒花菜','炒包菜','清炒大白菜','上汤娃娃菜','耗油生菜','木须肉','番茄炒蛋','洋葱炒蛋','西葫芦炒蛋','擂椒皮蛋茄子','地三鲜','豆芽炒肉丝','干煸四季豆','西蓝花炒虾仁','蘑菇芦笋'],
+            '高碳水':['酸辣土豆丝','蚂蚁上树','芒果糯米饭'],
+            '汤':['紫菜蛋汤','菠菜蛋/丸子汤','菠菜蘑菇汤','番茄蛋汤'],
+            '主食':['蛋炒饭','肉酱面','糯米饭','葱油拌面','饺子']
+            }
+
+            let lty1 = document.getElementsByName("jxf1");
+            let cc1='';
+            let result1='推荐菜谱：';
+            let zuocai1='做菜：';
+            let maicai1='买菜：';
+            let xiwan1='洗碗：';
+
+            for(var i=0; i<lty1.length; i++){
+                if(lty1[i].checked){
+                    cc=lty1[i].value; //如果选中，则cc等于变量值
+                    let a=parseInt(Math.random()*meals[cc].length);
+                    result1+=meals[cc][a]+'、';
+                }
+            };
+            for(var i=0;i<999;i++){
+                let b = parseInt(Math.random()*5);
+                let c = parseInt(Math.random()*5);
+                if(b!=c){
+                    maicai1 += name[b];
+                    xiwan1 += name[c];
+                    for(var y=0;y<5;y++){
+                        if(y!=b && y!=c){
+                            zuocai1 += name[y]+'、';
+                        };
+                    };
+                    break;
+                }
+            };
+            result1 = result1.substr(0, result1.length - 1);
+            zuocai1 = zuocai1.substr(0, zuocai1.length - 1);
+            finalresult1.innerHTML = result1;
+            finalzuocai1.innerHTML = zuocai1;
+            finalmaicai1.innerHTML = maicai1;
+            finalxiwan1.innerHTML = xiwan1;
+
+        }
+
+        // 实现按下enter键直接返回结果
+        document.onkeydown = function(event){
+            var e = event || window.event;
+            if (e && e.keyCode == 13){
+                findlzh();
+            }
+        }
     </script>
 </body>
 </html>
